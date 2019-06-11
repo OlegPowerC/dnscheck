@@ -95,18 +95,21 @@ func main() {
 
 	}
 	var rd1 []result
-	val := 1
+	val := 4
+	lval := 4
+	gval := 4
 	for _,ores := range dnscheckst{
-		val = 1
 		if len(ores.Hostdata) > 0{
 
 			for _,orec := range ores.Hostdata{
 				if orec.Errstring != ""{
-					val = 4
+					lval = 4
 				}else {
 
-					if orec.ContainExpectedIp == false{
-						val = 2
+					if orec.ContainExpectedIp == true{
+						lval = 1
+					}else {
+						lval = 2
 					}
 				}
 			}
@@ -114,14 +117,22 @@ func main() {
 		if len(ores.EHostdata) > 0{
 			for _,orec2 := range ores.EHostdata{
 				if orec2.Errstring != ""{
-					val = 4
+					gval = 4
 				}else {
 
-					if orec2.ContainExpectedIp == false {
-						val = 3
+					if orec2.ContainExpectedIp == true {
+						gval = 1
+					}else {
+						gval = 3
 					}
 				}
 			}
+		}
+		switch lval {
+		case 1:val = gval;break
+		case 2:if gval == 1 {val = lval}else {if gval == 3{val = 5}else{val = gval}};break
+		default:
+			break
 		}
 		rd1 = append(rd1,result{Channel:ores.DNSServer.String(),Value:strconv.Itoa(val),Lookup:"dnslookup"})
 	}

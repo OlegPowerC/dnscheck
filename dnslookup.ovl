@@ -5,5 +5,6 @@
         <SingleInt state="Error" value="2">Intranet hosts resolv error</SingleInt>
         <SingleInt state="Error" value="3">Internet hosts resolv error</SingleInt>
         <SingleInt state="Error" value="4">DNS server error</SingleInt>
+        <SingleInt state="Error" value="5">Intranet and Internet resolv error</SingleInt>
     </Lookups>
 </ValueLookup>
